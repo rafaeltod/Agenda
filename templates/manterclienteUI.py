@@ -6,11 +6,10 @@ import time
 class ManterClienteUI:
   def main():
     st.header("Cadastro de Clientes")
-    tab1, tab2, tab3, tab4 = st.tabs(["Listar", "Inserir", "Atualizar", "Excluir"])
+    tab1, tab2, tab3 = st.tabs(["Listar", "Atualizar", "Excluir"])
     with tab1: ManterClienteUI.listar()
-    with tab2: ManterClienteUI.inserir()
-    with tab3: ManterClienteUI.atualizar()
-    with tab4: ManterClienteUI.excluir()
+    with tab2: ManterClienteUI.atualizar()
+    with tab3: ManterClienteUI.excluir()
 
   def listar():
     clientes = View.cliente_listar()
@@ -27,19 +26,6 @@ class ManterClienteUI:
 
       df = pd.DataFrame(data, columns=["ID", "Nome", "E-mail", "Fone"])
       st.dataframe(df)
-
-  def inserir():
-    nome = st.text_input("Informe o nome")
-    email = st.text_input("Informe o e-mail")
-    fone = st.text_input("Informe o fone")
-    senha = st.text_input("Informe a senha")
-    if st.button("Inserir"):
-      if View.cliente_inserir(nome, email, fone, senha):
-        st.success("Cliente inserido com sucesso")
-        time.sleep(2)
-        st.rerun()
-      else:
-        st.error("E-mail já cadastrado")
 
   def atualizar():
     clientes = View.cliente_listar()

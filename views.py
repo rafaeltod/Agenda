@@ -1,7 +1,6 @@
 from models.cliente import Cliente, NCliente
 from models.servico import Servico, NServico
 from models.agenda import Agenda, NAgenda
-from models.conta import Conta, NConta
 import datetime
 
 class View:
@@ -22,24 +21,6 @@ class View:
   def cliente_excluir(id):
     cliente = Cliente(id, "", "", "", "")
     NCliente.excluir(cliente)
-
-  def conta_inserir(nome, email, senha):
-    conta = Conta(0, nome, email, senha)
-    return NConta.inserir(conta)
-
-  def conta_listar():
-    return NConta.listar()
-  
-  def conta_listar_id(id):
-    return NConta.listar_id(id)
-
-  def conta_atualizar(id, nome, email, senha):
-    conta = Cliente(id, nome, email, senha)
-    return NConta.atualizar(conta)
-    
-  def conta_excluir(id):
-    conta = Conta(id, "", "", "")
-    NConta.excluir(conta)  
 
   def servico_listar():
     return NServico.listar()
