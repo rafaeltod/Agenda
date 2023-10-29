@@ -18,9 +18,28 @@ class ManterAgendaUI:
     if len(agendas) == 0:
       st.write("Nenhum horário cadastrado")
     else:
-      dic = []
-      for obj in agendas: dic.append(obj.to_json())
-      df = pd.DataFrame(dic)
+      dados = []
+      for agenda in agendas:
+        nome_cliente = None
+        descricao_servico = None
+
+        id = agenda.get_id()
+        data = agenda.get_data()
+        confirmado = agenda.get_confirmado()
+
+        clientes = View.cliente_listar()
+        for cliente in clientes:
+          if agenda.get_id_cliente() == cliente.get_id():
+            nome_cliente = cliente.get_nome()
+          
+        servicos = View.servico_listar()
+        for servico in servicos: 
+          if agenda.get_id_servico() == servico.get_id():
+            descricao_servico = servico.get_descricao()
+        
+        dados.append([id, data, confirmado, nome_cliente, descricao_servico])
+      
+      df = pd.DataFrame(dados, columns=["Id", "Data", "Confirmado", "Nome Cliente", "Nome Serviço"])
       st.dataframe(df)
 
   def inserir():
@@ -31,7 +50,7 @@ class ManterAgendaUI:
     servico = st.selectbox("Selecione o serviço", servicos)
     if st.button("Inserir"):
       data = datetime.datetime.strptime(datastr, "%d/%m/%Y %H:%M")
-      View.agenda_inserir(data, True, cliente.get_nome(), servico.get_descricao())
+      View.agenda_inserir(data, True, cliente.get_id(), servico.get_id())
       st.success("Horário inserido com sucesso")
       time.sleep(2)
       st.rerun()
@@ -57,7 +76,7 @@ class ManterAgendaUI:
         servico = st.selectbox("Selecione o novo serviço", servicos)
       if st.button("Atualizar"):
         data = datetime.datetime.strptime(datastr, "%d/%m/%Y %H:%M")
-        View.agenda_atualizar(op.get_id(), data, op.get_confirmado(), cliente.get_nome(), servico.get_descricao())
+        View.agenda_atualizar(op.get_id(), data, op.get_confirmado(), cliente.get_id(), servico.get_id())
         st.success("Horário atualizado com sucesso")
         time.sleep(2)
         st.rerun()
@@ -73,5 +92,3 @@ class ManterAgendaUI:
         st.success("Horário excluído com sucesso")
         time.sleep(2)
         st.rerun()
-
-
