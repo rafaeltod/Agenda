@@ -65,7 +65,6 @@ class NConta:
     if aux is not None:
       aux.set_nome(obj.get_nome())
       aux.set_email(obj.get_email())
-      aux.set_fone(obj.get_fone())
       aux.set_senha(obj.get_senha())
       cls.salvar()
       return True
@@ -85,7 +84,7 @@ class NConta:
       with open("contas.json", mode="r") as arquivo:
         contas_json = json.load(arquivo)
         for obj in contas_json:
-          aux = Conta(obj["_Conta__id"], obj["_Conta__nome"], obj["_Conta__email"], obj["_Conta__fone"], obj["_Conta__senha"])
+          aux = Conta(obj["_Conta__id"], obj["_Conta__nome"], obj["_Conta__email"], obj["_Conta__senha"])
           cls.__contas.append(aux)
     except FileNotFoundError:
       pass
