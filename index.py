@@ -15,16 +15,8 @@ class IndexUI:
       if op == "Manter Agenda": ManterAgendaUI.main()
       if op == "Abrir Agenda do Dia": AbrirAgendaUI.main()
       if op == "Abrir Conta no Sistema": AbrirContaUI.main()
-
-      #if op == "Manter Clientes": st.session_state["page"] = "manter_clienteUI"
-
+      
     def main():
       IndexUI.sidebar()
 
-      #if "page" not in st.session_state: st.session_state["page"] = "equacaoUI"
-      #if st.session_state["page"] == "manter_clienteUI": ManterClienteUI.main()
-
 IndexUI.main()
-
-
-
